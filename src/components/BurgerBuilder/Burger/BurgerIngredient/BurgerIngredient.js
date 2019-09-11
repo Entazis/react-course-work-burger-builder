@@ -1,7 +1,7 @@
 import React
   from 'react';
 import classes from './Ingredient.module.css';
-import ingredients from './constants';
+import  {ingredients}  from '../../constants';
 
 const burgerIngredient = (props) => {
   let ingredient = null;
