@@ -1,4 +1,4 @@
-const ingredientConstants = {
+const ingredients = {
   breadTop: 'bread-top',
   breadBottom: 'bread-bottom',
   cheese: 'cheese',
@@ -7,4 +7,4 @@ const ingredientConstants = {
   salad: 'salad'
 };
 
-export default ingredientConstants;
+export default ingredients;

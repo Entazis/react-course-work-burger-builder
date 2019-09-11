@@ -1,28 +1,28 @@
 import React
   from 'react';
 import classes from './Ingredient.module.css';
-import ingredientConstants from './constants';
+import ingredients from './constants';
 
 const burgerIngredient = (props) => {
   let ingredient = null;
 
   switch (props.type) {
-    case ingredientConstants.breadTop:
+    case ingredients.breadTop:
       ingredient = <div className={classes.BreadTop}>.</div> ;
       break;
-    case ingredientConstants.breadBottom:
+    case ingredients.breadBottom:
       ingredient = <div className={classes.BreadBottom}>.</div> ;
       break;
-    case ingredientConstants.bacon:
+    case ingredients.bacon:
       ingredient = <div className={classes.Bacon}>.</div> ;
       break;
-    case ingredientConstants.cheese:
+    case ingredients.cheese:
       ingredient = <div className={classes.Cheese}>.</div> ;
       break;
-    case ingredientConstants.meat:
+    case ingredients.meat:
       ingredient = <div className={classes.Meat}>.</div> ;
       break;
-    case ingredientConstants.salad:
+    case ingredients.salad:
       ingredient = <div className={classes.Salad}>.</div> ;
       break;
     default:
