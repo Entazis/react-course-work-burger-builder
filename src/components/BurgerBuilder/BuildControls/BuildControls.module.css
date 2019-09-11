@@ -8,3 +8,35 @@
     margin: auto;
     padding: 10px 0;
 }
+
+.OrderNowButton {
+    display: block;
+    font: inherit;
+    padding: 18px;
+    margin: 15px 5px;
+    width: auto;
+    border: 1px solid #AA6817;
+    cursor: pointer;
+    outline: none;
+    background-color: darkred;
+    color: white;
+}
+
+.OrderNowButton:disabled {
+    background-color: #AC9980;
+    border: 1px solid #7E7365;
+    color: #ccc;
+    cursor: default;
+}
+
+.OrderNowButton:hover:disabled {
+    background-color: #AC9980;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.OrderNowButton:hover, .OrderNowButton:active {
+    background-color: #DAA972;
+    color: white;
+}

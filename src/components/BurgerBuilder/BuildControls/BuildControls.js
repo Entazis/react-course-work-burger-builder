@@ -14,6 +14,7 @@ const buildControls = (props) => {
                 key={control.label}
                 label={control.label}
                 type={control.type}/>)}
+            <button className={classes.OrderNowButton}>ORDER NOW</button>
         </div>
     );
 };
