@@ -1,8 +1,6 @@
-import React
-    from 'react';
+import React from 'react';
 import classes from './BuildControls.module.css';
-import { controls }
-    from '../constants';
+import { controls } from '../constants';
 import BuildControl from './BuildControl/BuildControl';
 
 const buildControls = (props) => {
