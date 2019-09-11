@@ -5,10 +5,15 @@ import { controls }
     from '../constants';
 import BuildControl from './BuildControl/BuildControl';
 
-const buildControls = () => {
+const buildControls = (props) => {
     return (
         <div className={classes.BuildControls}>
-            {controls.map(control => <BuildControl key={control.label} label={control.label} type={control.type}/>)}
+            {controls.map(control => <BuildControl
+                addedIngredient={props.addedIngredient}
+                removedIngredient={props.removedIngredient}
+                key={control.label}
+                label={control.label}
+                type={control.type}/>)}
         </div>
     );
 };

@@ -1,11 +1,7 @@
-import React
-    from 'react';
-import classes
-    from './Burger.module.css';
-import BurgerIngredient
-    from './BurgerIngredient/BurgerIngredient';
-import  { ingredients }
-    from '../constants';
+import React from 'react';
+import classes from './Burger.module.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import  { ingredients } from '../constants';
 
 const burger = (props) => {
     const transformedIngredients = Object.keys(props.ingredients)
