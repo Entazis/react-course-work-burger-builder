@@ -16,4 +16,11 @@ const controls = [
     {label: 'Salad', type: ingredients.salad},
 ];
 
-export { ingredients, controls };
+const prices = {
+    cheese: 0.8,
+    bacon: 1.2,
+    meat: 2.4,
+    salad: 0.5
+};
+
+export { ingredients, controls, prices };

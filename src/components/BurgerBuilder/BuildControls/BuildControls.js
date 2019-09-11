@@ -6,6 +6,7 @@ import BuildControl from './BuildControl/BuildControl';
 const buildControls = (props) => {
     return (
         <div className={classes.BuildControls}>
+            <div>Total Price: <strong>{props.totalPrice.toFixed(2)} $</strong></div>
             {controls.map(control => <BuildControl
                 addedIngredient={props.addedIngredient}
                 removedIngredient={props.removedIngredient}
