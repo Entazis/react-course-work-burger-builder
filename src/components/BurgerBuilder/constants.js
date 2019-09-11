@@ -4,7 +4,9 @@ const ingredients = {
     cheese: 'cheese',
     bacon: 'bacon',
     meat: 'meat',
-    salad: 'salad'
+    salad: 'salad',
+    seeds1: 'seeds1',
+    seeds2: 'seeds2'
 };
 
 const controls = [
