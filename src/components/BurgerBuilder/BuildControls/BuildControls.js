@@ -10,6 +10,7 @@ const buildControls = (props) => {
             {controls.map(control => <BuildControl
                 addedIngredient={props.addedIngredient}
                 removedIngredient={props.removedIngredient}
+                ingredients={props.ingredients}
                 key={control.label}
                 label={control.label}
                 type={control.type}/>)}

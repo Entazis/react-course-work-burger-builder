@@ -11,6 +11,7 @@ class BurgerBuilder extends Component {
             meat: 2,
             salad: 1
         },
+        isPurchaseEnabled: true,
         totalPrice: 4
     };
 
@@ -46,6 +47,8 @@ class BurgerBuilder extends Component {
                 <BuildControls
                     addedIngredient={this.addIngredient}
                     removedIngredient={this.removeIngredient}
+                    ingredients={this.state.ingredients}
+                    isPurchaesEnabled={this.state.isPurchaseEnabled}
                     totalPrice={this.state.totalPrice}
                 />
             </div>
