@@ -8,10 +8,10 @@ const ingredients = {
 };
 
 const controls = [
-    {label: 'cheese', type: ingredients.cheese},
-  {label: 'bacon', type: ingredients.bacon},
-  {label: 'meat', type: ingredients.meat},
-  {label: 'salad', type: ingredients.salad},
+    {label: 'Cheese', type: ingredients.cheese},
+  {label: 'Bacon', type: ingredients.bacon},
+  {label: 'Meat', type: ingredients.meat},
+  {label: 'Salad', type: ingredients.salad},
 ];
 
 export { ingredients, controls };
