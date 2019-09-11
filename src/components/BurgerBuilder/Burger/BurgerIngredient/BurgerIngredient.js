@@ -4,34 +4,34 @@ import classes from './Ingredient.module.css';
 import ingredientConstants from './constants';
 
 const burgerIngredient = (props) => {
-  let ingredientClass = null;
+  let ingredient = null;
 
   switch (props.type) {
     case ingredientConstants.breadTop:
-      ingredientClass = classes.BreadTop;
+      ingredient = <div className={classes.BreadTop}>.</div> ;
       break;
     case ingredientConstants.breadBottom:
-      ingredientClass = classes.BreadBottom;
+      ingredient = <div className={classes.BreadBottom}>.</div> ;
       break;
     case ingredientConstants.bacon:
-      ingredientClass = classes.Bacon;
+      ingredient = <div className={classes.Bacon}>.</div> ;
       break;
     case ingredientConstants.cheese:
-      ingredientClass = classes.Cheese;
+      ingredient = <div className={classes.Cheese}>.</div> ;
       break;
     case ingredientConstants.meat:
-      ingredientClass = classes.Meat;
+      ingredient = <div className={classes.Meat}>.</div> ;
       break;
     case ingredientConstants.salad:
-      ingredientClass = classes.Salad;
+      ingredient = <div className={classes.Salad}>.</div> ;
       break;
     default:
-      ingredientClass = null;
+      ingredient = null;
   }
 
   return (
-      <div className={ingredientClass}>
-        .
+      <div>
+        {ingredient}
       </div>
   );
 };

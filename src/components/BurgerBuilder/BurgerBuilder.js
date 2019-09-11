@@ -5,10 +5,10 @@ import BuildControls from './BuildControls/BuildControls';
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-      salad: 0
+      bacon: 1,
+      cheese: 2,
+      meat: 2,
+      salad: 1
     }
   };
 
