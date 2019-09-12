@@ -3,7 +3,7 @@ import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
 import { prices } from './constants';
 import Modal
-    from '../UI/modal';
+    from '../UI/Modal/modal';
 import OrderSummary
     from './Burger/OrderSummary/OrderSummary';
 
