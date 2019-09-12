@@ -7,6 +7,7 @@ const orderSummary = (props) => {
             <ul>
                 {Object.keys(props.ingredients).map(ingKey => <li key={ingKey}>{ingKey}: {props.ingredients[ingKey]}</li>)}
             </ul>
+            <p><strong>Total price: {props.totalPrice.toFixed(2)} $</strong></p>
         </div>
     );
 };
