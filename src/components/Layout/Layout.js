@@ -1,5 +1,5 @@
 import React from 'react';
-import ToolbarItems from '../UI/ToolbarItems/ToolbarItems';
+import ToolbarItems from '../Navigation/Toolbar/Toolbar';
 
 
 const layout = (props) => {

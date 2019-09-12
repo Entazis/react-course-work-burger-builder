@@ -1,7 +1,7 @@
 import React from 'react';
 import ToolbarItem from './ToolbarItem/ToolbarItem';
 
-const toolbarItems = () => {
+const toolbar = () => {
     return (
         <div>
             <ul>
@@ -12,4 +12,4 @@ const toolbarItems = () => {
     );
 };
 
-export default toolbarItems;
+export default toolbar;
