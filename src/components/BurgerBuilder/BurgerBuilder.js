@@ -56,10 +56,17 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: true});
     };
 
+    togglePurchaseHandler = () => {
+        console.log('toggled!');
+        this.setState((prevState) => ({
+            purchasing: !prevState.purchasing
+        }));
+    };
+
     render() {
         return (
             <div>
-                <Modal show={this.state.purchasing}>
+                <Modal show={this.state.purchasing} close={this.togglePurchaseHandler}>
                     <OrderSummary ingredients={this.state.ingredients}/>
                 </Modal>
                 <Burger
