@@ -1,11 +1,13 @@
-import React
-    from 'react';
+import React from 'react';
+import ToolbarItems from '../UI/ToolbarItems/ToolbarItems';
+
 
 const layout = (props) => {
     return (
         <React.Fragment>
             <header>
-                Toolbar | Side Drawer | Backdrop
+                <ToolbarItems/>
+                Side Drawer | Backdrop
             </header>
             <main>
                 {props.children}
