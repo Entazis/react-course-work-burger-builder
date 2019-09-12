@@ -5,7 +5,7 @@ import SideDrawer from '../UI/SideDrawer/SideDrawer';
 
 class Layout extends Component {
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     };
 
     sideDrawerClosedHandler = () => {
@@ -20,7 +20,7 @@ class Layout extends Component {
         return (
             <React.Fragment>
                 <header>
-                    <Toolbar/>
+                    <Toolbar clicked={this.sideDrawerOpenedHandler}/>
                     <SideDrawer
                         closed={this.sideDrawerClosedHandler}
                         show={this.state.showSideDrawer}
@@ -28,7 +28,7 @@ class Layout extends Component {
                     />
                 </header>
                 <main className={classes.Content}>
-                    {this.children}
+                    {this.props.children}
                 </main>
             </React.Fragment>
         )
