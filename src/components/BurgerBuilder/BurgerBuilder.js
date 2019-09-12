@@ -63,11 +63,20 @@ class BurgerBuilder extends Component {
         }));
     };
 
+    continuePurchase = () => {
+        alert('You\'ve successfully ordered the burger');
+    };
+
     render() {
         return (
             <div>
                 <Modal show={this.state.purchasing} close={this.togglePurchaseHandler}>
-                    <OrderSummary ingredients={this.state.ingredients} totalPrice={this.state.totalPrice}/>
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        totalPrice={this.state.totalPrice}
+                        cancel={this.togglePurchaseHandler}
+                        continue={this.continuePurchase}
+                    />
                 </Modal>
                 <Burger
                     ingredients={this.state.ingredients}
