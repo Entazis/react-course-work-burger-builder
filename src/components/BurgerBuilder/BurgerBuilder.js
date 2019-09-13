@@ -48,7 +48,6 @@ class BurgerBuilder extends Component {
     setPurchaseAvailability = (ingredients) => {
         const count = Object.values(ingredients)
             .reduce((cnt, price) => cnt + price, 0);
-        console.log(count);
         this.setState({isPurchaseEnabled: count > 0});
     };
 
