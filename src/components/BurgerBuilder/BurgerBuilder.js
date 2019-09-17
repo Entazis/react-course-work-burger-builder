@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
 import { prices } from './constants';
-import Modal
-    from '../UI/Modal/modal';
-import OrderSummary
-    from './Burger/OrderSummary/OrderSummary';
+import Modal from '../UI/Modal/modal';
+import OrderSummary from './Burger/OrderSummary/OrderSummary';
+import axios from '../../axios';
 
 class BurgerBuilder extends Component {
     state = {
@@ -61,8 +60,32 @@ class BurgerBuilder extends Component {
         }));
     };
 
-    continuePurchase = () => {
+    continuePurchase = async () => {
         alert('You\'ve successfully ordered the burger');
+        try {
+            await axios.post('/orders.json', {
+                ingredients: {
+                    bacon: 1,
+                    cheese: 2,
+                    meat: 2,
+                    salad: 1
+                },
+                totalPrice: 4,
+                orderInfo: {
+                    name: 'George',
+                    address: {
+                        country: 'HU',
+                        zipCode: 1096,
+                        street: 'Kossuth Lajos utca',
+                        number: 24
+                    },
+                    phoneNumber: '+36302556565'
+                }
+            });
+            console.log('Order was successfully submitted!');
+        } catch (e) {
+            console.log('Something went wrong, please try again later!');
+        }
     };
 
     render() {
