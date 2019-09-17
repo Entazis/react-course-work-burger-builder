@@ -5,6 +5,8 @@ import { prices } from './constants';
 import Modal from '../UI/Modal/modal';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
 import axios from '../../axios';
+import Spinner from '../UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/ErrorHandler';
 
 class BurgerBuilder extends Component {
     state = {
@@ -16,7 +18,8 @@ class BurgerBuilder extends Component {
         },
         isPurchaseEnabled: true,
         purchasing: false,
-        totalPrice: 4
+        totalPrice: 4,
+        loading: false
     };
 
     addIngredient = (type) => {
@@ -61,43 +64,49 @@ class BurgerBuilder extends Component {
     };
 
     continuePurchase = async () => {
-        alert('You\'ve successfully ordered the burger');
-        try {
-            await axios.post('/orders.json', {
-                ingredients: {
-                    bacon: 1,
-                    cheese: 2,
-                    meat: 2,
-                    salad: 1
+        this.setState({loading: true});
+        await axios.post('/orders.json', {
+            ingredients: {
+                bacon: 1,
+                cheese: 2,
+                meat: 2,
+                salad: 1
+            },
+            totalPrice: 4,
+            orderInfo: {
+                name: 'George',
+                address: {
+                    country: 'HU',
+                    zipCode: 1096,
+                    street: 'Kossuth Lajos utca',
+                    number: 24
                 },
-                totalPrice: 4,
-                orderInfo: {
-                    name: 'George',
-                    address: {
-                        country: 'HU',
-                        zipCode: 1096,
-                        street: 'Kossuth Lajos utca',
-                        number: 24
-                    },
-                    phoneNumber: '+36302556565'
-                }
-            });
-            console.log('Order was successfully submitted!');
-        } catch (e) {
-            console.log('Something went wrong, please try again later!');
-        }
+                phoneNumber: '+36302556565'
+            }
+        });
+        this.setState({loading: false});
+        this.setState({purchasing: false});
     };
 
     render() {
+        let orderSummary = (
+            <OrderSummary
+                ingredients={this.state.ingredients}
+                totalPrice={this.state.totalPrice}
+                cancel={this.togglePurchaseHandler}
+                continue={this.continuePurchase}
+            />);
+        if (this.state.loading) {
+            orderSummary = <Spinner/>;
+        }
+
         return (
             <div>
-                <Modal show={this.state.purchasing} close={this.togglePurchaseHandler}>
-                    <OrderSummary
-                        ingredients={this.state.ingredients}
-                        totalPrice={this.state.totalPrice}
-                        cancel={this.togglePurchaseHandler}
-                        continue={this.continuePurchase}
-                    />
+                <Modal
+                    show={this.state.purchasing}
+                    close={this.togglePurchaseHandler}
+                    loading={this.state.loading}>
+                    {orderSummary}
                 </Modal>
                 <Burger
                     ingredients={this.state.ingredients}
@@ -115,4 +124,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
