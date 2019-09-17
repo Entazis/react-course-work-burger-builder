@@ -4,11 +4,11 @@ import Modal
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
-        state = {
-            error: null
-        };
-
-        componentDidMount() {
+        constructor(props) {
+            super(props);
+            this.state = {
+                error: null
+            };
             axios.interceptors.response.use(req => req, error => {
                 this.setState({error: error});
             });
