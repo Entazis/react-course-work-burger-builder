@@ -73,26 +73,6 @@ class BurgerBuilder extends Component {
             search: '?' + query.join("&")
         });
 
-
-        // await axios.post('/orders.json', {
-        //     ingredients: {
-        //         bacon: 1,
-        //         cheese: 2,
-        //         meat: 2,
-        //         salad: 1
-        //     },
-        //     totalPrice: 4,
-        //     orderInfo: {
-        //         name: 'George',
-        //         address: {
-        //             country: 'HU',
-        //             zipCode: 1096,
-        //             street: 'Kossuth Lajos utca',
-        //             number: 24
-        //         },
-        //         phoneNumber: '+36302556565'
-        //     }
-        // });
         this.setState({purchasing: false});
     };
 
