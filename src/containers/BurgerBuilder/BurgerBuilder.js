@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
 import { prices } from './constants';
-import Modal from '../UI/Modal/modal';
+import Modal from '../../components/UI/Modal/modal';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
 import axios from '../../axios';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/ErrorHandler';
 
 class BurgerBuilder extends Component {
