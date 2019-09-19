@@ -29,7 +29,6 @@ class Checkout extends Component {
     };
 
     onContinueHandler = () => {
-        console.log(this.props);
         this.props.history.push('/checkout/contact-data');
     };
 
@@ -61,7 +60,6 @@ class Checkout extends Component {
     };
 
     render() {
-        console.log(this.props.location.pathname);
         return (
             <div>
                 <h2>Here's your delicious burger, we hope you enjoy!</h2>
