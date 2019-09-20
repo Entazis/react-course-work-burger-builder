@@ -1,0 +1,11 @@
+.Input {
+    display: block;
+    float: none;
+    margin: auto;
+}
+
+.Input label {
+    font-weight: bold;
+    font: inherit;
+    margin-right: 10px;
+}
