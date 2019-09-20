@@ -53,10 +53,26 @@ class ContactForm extends Component  {
                     {value: 'fastest', displayValue: 'Fastest'},
                     {value: 'cheapest', displayValue: 'Cheapest'}
                 ],
+                value: 'cheapest',
                 displayName: 'Delivery Method',
                 isValid: ''
             }
         }
+    };
+
+    onChangeHandler = (event, formKey) => {
+        const contactForm = {...this.state.contactForm};
+        const formElement = {...contactForm[formKey]};
+
+        if (formElement.inputType === 'select') {
+            formElement.value = event.target.value;
+        } else {
+            formElement.config.value = event.target.value;
+        }
+
+        contactForm[formKey] = formElement;
+
+        this.setState({contactForm: contactForm});
     };
 
     render() {
@@ -66,8 +82,10 @@ class ContactForm extends Component  {
                 <Input
                     inputType={form[formKey].inputType}
                     config={form[formKey].config}
+                    value={form[formKey].value}
                     key={formKey}
-                    displayName={form[formKey].displayName}/>
+                    displayName={form[formKey].displayName}
+                    changed={(event) => this.onChangeHandler(event, formKey)}/>
             )
         });
 

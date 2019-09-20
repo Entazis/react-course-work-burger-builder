@@ -9,12 +9,13 @@ const Input = (props) => {
             input = (
                 <input
                     {...props.config}
+                    onChange={props.changed}
                 />
             );
             break;
         case 'select':
             input = (
-                <select>
+                <select onChange={props.changed} defaultValue={props.value}>
                     {props.config.map(option => <option key={option.value} value={option.value}>{option.displayValue}</option>)}
                 </select>
             );
@@ -23,6 +24,7 @@ const Input = (props) => {
             input = (
                 <input
                     {...props.config}
+                    onChange={props.changed}
                 />
             );
             break;
