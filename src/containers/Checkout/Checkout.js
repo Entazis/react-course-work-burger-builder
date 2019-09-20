@@ -10,8 +10,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Checkout extends Component {
     state = {
-        ingredients: {},
-        loading: false
+        ingredients: {}
     };
 
     componentDidMount() {
@@ -34,40 +33,13 @@ class Checkout extends Component {
         this.props.history.push('/checkout/contact-data');
     };
 
-    onOrderedHandler = (event) => {
-        event.preventDefault();
-        this.setState({loading: true});
-
-        axios.post('/orders.json', {
-            ingredients: {
-                bacon: this.state.ingredients.bacon,
-                cheese: this.state.ingredients.cheese,
-                meat: this.state.ingredients.meat,
-                salad: this.state.ingredients.salad
-            },
-            totalPrice: 4,
-            orderInfo: {
-                name: 'Steve',
-                address: {
-                    country: 'HU',
-                    zipCode: 1096,
-                    street: 'Wesseleny utca',
-                    number: 121
-                },
-                phoneNumber: '+36302345688'
-            }
-        }).then(() => {
-            this.setState({loading: false});
-            this.props.history.push('/my-orders');
-        });
-    };
-
     render() {
         let form = null;
         if (this.state.loading) {
             form = <Spinner />;
         } else {
-            form = <ContactForm clicked={this.onOrderedHandler}/>;
+            form = <ContactForm ingredients={this.state.ingredients}/>;
+
         }
         return (
             <div>

@@ -7,7 +7,9 @@ const order = (props) => {
         <div className={classes.OrderInfo}>
             <div>Name: {props.orderInfo.name}</div>
             <div>Phone: {props.orderInfo.phoneNumber}</div>
-            <div>Address: {props.orderInfo.address.zipCode + ' ' + props.orderInfo.address.street + ' ' + props.orderInfo.address.number}</div>
+            <div>Address: {props.orderInfo.address}</div>
+            <div>Email: {props.orderInfo.email}</div>
+            <div>Delivery Method: {props.orderInfo.deliveryMethod}</div>
         </div>
     );
     return (
