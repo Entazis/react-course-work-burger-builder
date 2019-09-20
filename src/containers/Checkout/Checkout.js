@@ -5,6 +5,7 @@ import axios from '../../axios';
 import Burger from '../BurgerBuilder/Burger/Burger';
 import Button from '../../components/UI/Button/Button';
 import ContactForm from '../../components/UI/ContactForm/ContactForm';
+import withErrorHandler from '../../hoc/ErrorHandler';
 
 class Checkout extends Component {
     state = {
@@ -41,7 +42,7 @@ class Checkout extends Component {
                 bacon: this.state.ingredients.bacon,
                 cheese: this.state.ingredients.cheese,
                 meat: this.state.ingredients.meat,
-                salad: this.state.ingredients.bacon.salad
+                salad: this.state.ingredients.salad
             },
             totalPrice: 4,
             orderInfo: {
@@ -73,4 +74,4 @@ class Checkout extends Component {
     }
 }
 
-export default Checkout;
+export default withErrorHandler(Checkout, axios);
