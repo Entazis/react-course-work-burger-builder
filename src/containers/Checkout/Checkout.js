@@ -38,8 +38,7 @@ class Checkout extends Component {
         if (this.state.loading) {
             form = <Spinner />;
         } else {
-            form = <ContactForm ingredients={this.state.ingredients}/>;
-
+            form = <ContactForm ingredients={this.state.ingredients} error={this.props.error}/>;
         }
         return (
             <div>

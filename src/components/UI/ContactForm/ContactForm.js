@@ -100,6 +100,9 @@ class ContactForm extends Component  {
             }
         }).then(() => {
             this.setState({loading: false});
+            if (!this.props.error) {
+                this.props.history.push('/my-orders');
+            }
         });
     };
 
