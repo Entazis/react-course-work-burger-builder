@@ -5,13 +5,13 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import ingredients from './store/ingredients';
+import reducer from './store/reducer';
 import * as serviceWorker from './serviceWorker';
 
-const reducer = createStore(ingredients);
+const store = createStore(reducer);
 
 const app = (
-    <Provider store={reducer}>
+    <Provider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
