@@ -1,7 +1,10 @@
 import React, { Component }
     from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Button from '../Button/Button';
+import withErrorHandler
+    from '../../../hoc/ErrorHandler';
 import Input
     from './Input/Input';
 import axios
@@ -90,7 +93,7 @@ class ContactForm extends Component  {
                 meat: this.props.ingredients.meat,
                 salad: this.props.ingredients.salad
             },
-            totalPrice: 4,
+            totalPrice: this.props.price,
             orderInfo: {
                 name: this.state.contactForm.name.config.value,
                 address: this.state.contactForm.address.config.value,
@@ -132,4 +135,11 @@ class ContactForm extends Component  {
     }
 }
 
-export default withRouter(ContactForm);
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients,
+        price: state.totalPrice
+    }
+};
+
+export default connect(mapStateToProps)(withErrorHandler(withRouter(ContactForm), axios));
