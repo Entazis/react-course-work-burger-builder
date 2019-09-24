@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
-import  { ingredients } from '../constants';
+import  { ingredientTypes } from '../constants';
 
 const burger = (props) => {
     const transformedIngredients = Object.keys(props.ingredients)
@@ -10,9 +10,9 @@ const burger = (props) => {
 
     return (
         <div className={classes.Burger}>
-            <BurgerIngredient type={ingredients.breadTop}/>
+            <BurgerIngredient type={ingredientTypes.breadTop}/>
             {(!isEmpty(transformedIngredients)) ? transformedIngredients : "Please start adding ingredients!"}
-            <BurgerIngredient type={ingredients.breadBottom}/>
+            <BurgerIngredient type={ingredientTypes.breadBottom}/>
         </div>
     );
 };

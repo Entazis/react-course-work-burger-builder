@@ -1,4 +1,4 @@
-const ingredients = {
+const ingredientTypes = {
     breadTop: 'bread-top',
     breadBottom: 'bread-bottom',
     cheese: 'cheese',
@@ -10,10 +10,10 @@ const ingredients = {
 };
 
 const controls = [
-    {label: 'Cheese', type: ingredients.cheese},
-    {label: 'Bacon', type: ingredients.bacon},
-    {label: 'Meat', type: ingredients.meat},
-    {label: 'Salad', type: ingredients.salad},
+    {label: 'Cheese', type: ingredientTypes.cheese},
+    {label: 'Bacon', type: ingredientTypes.bacon},
+    {label: 'Meat', type: ingredientTypes.meat},
+    {label: 'Salad', type: ingredientTypes.salad},
 ];
 
 const prices = {
@@ -23,4 +23,4 @@ const prices = {
     salad: 0.5
 };
 
-export { ingredients, controls, prices };
+export { ingredientTypes, controls, prices };

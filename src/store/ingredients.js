@@ -71,6 +71,11 @@ const reducer = (state = initialState, action) => {
                 default:
                     return state;
             }
+        case actions.setIngredients:
+            return {
+                ...state,
+                ingredients: action.ingredients
+            };
         default:
             return state;
     }

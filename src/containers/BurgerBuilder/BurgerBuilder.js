@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import actions from '../../store/actions';
 import { prices } from './constants';
 import axios from '../../axios';
 
@@ -9,12 +11,8 @@ import Modal from '../../components/UI/Modal/modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/ErrorHandler';
 
-import { connect } from 'react-redux';
-import actions from '../../store/actions';
-
 class BurgerBuilder extends Component {
     state = {
-        ingredients: {},
         isPurchaseEnabled: true,
         purchasing: false,
         totalPrice: 4,
@@ -23,21 +21,19 @@ class BurgerBuilder extends Component {
     };
 
     addIngredient = (type) => {
-        const ingredients = {...this.state.ingredients};
-        ingredients[type] = ingredients[type] + 1;
-        this.setState({ingredients});
-        this.updateTotalPrice(ingredients);
-        this.setPurchaseAvailability(ingredients);
+        this.props.addIngredient(type);
+
+        //TODO: this should run after the state update
+        this.updateTotalPrice(this.props.ingredients);
+        this.setPurchaseAvailability(this.props.ingredients);
     };
 
     removeIngredient = (type) => {
-        const ingredients = {...this.state.ingredients};
-        if (ingredients[type] <= 0)
-            return;
-        ingredients[type] = ingredients[type] - 1;
-        this.setState({ingredients});
-        this.updateTotalPrice(ingredients);
-        this.setPurchaseAvailability(ingredients);
+        this.props.removeIngredient(type);
+
+        //TODO: this should run after the state update
+        this.updateTotalPrice(this.props.ingredients);
+        this.setPurchaseAvailability(this.props.ingredients);
     };
 
     updateTotalPrice = (ingredients) => {
@@ -64,25 +60,13 @@ class BurgerBuilder extends Component {
     };
 
     continuePurchase = async () => {
-        const ingredients = this.state.ingredients;
-        const query = [];
-        for (const ingredientName in ingredients) {
-            if (ingredients.hasOwnProperty(ingredientName)) {
-                query.push(encodeURIComponent(ingredientName) + "=" + encodeURIComponent(ingredients[ingredientName]));
-            }
-        }
-
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + query.join("&")
-        });
-
+        this.props.history.push('/checkout');
         this.setState({purchasing: false});
     };
 
     componentDidMount() {
         axios.get('/ingredients.json')
-            .then(ingredients => this.setState({ingredients: ingredients.data }))
+            .then(ingredients => this.props.setIngredients(ingredients.data))
             .catch(error => {this.setState({error: error})});
     }
 
@@ -94,7 +78,7 @@ class BurgerBuilder extends Component {
         if (!this.state.error) {
             burger = (
                 <Burger
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ingredients}
                 />
             );
             if (this.state.loading) {
@@ -102,7 +86,7 @@ class BurgerBuilder extends Component {
             } else {
                 orderSummary = (
                     <OrderSummary
-                        ingredients={this.state.ingredients}
+                        ingredients={this.props.ingredients}
                         totalPrice={this.state.totalPrice}
                         cancel={this.togglePurchaseHandler}
                         continue={this.continuePurchase}
@@ -112,7 +96,7 @@ class BurgerBuilder extends Component {
                 <BuildControls
                     addedIngredient={this.addIngredient}
                     removedIngredient={this.removeIngredient}
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ingredients}
                     isPurchaseEnabled={this.state.isPurchaseEnabled}
                     ordered={this.purchaseHandler}
                     totalPrice={this.state.totalPrice}
@@ -143,7 +127,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addIngredient: (ingredient) => dispatch({type: actions.addIngredient, ingredient: ingredient}),
-        removeIngredient: (ingredient) => dispatch({type: actions.removeIngredient, ingredient: ingredient})
+        removeIngredient: (ingredient) => dispatch({type: actions.removeIngredient, ingredient: ingredient}),
+        setIngredients: (ingredients) => dispatch({type: actions.setIngredients, ingredients: ingredients})
     }
 };
 
