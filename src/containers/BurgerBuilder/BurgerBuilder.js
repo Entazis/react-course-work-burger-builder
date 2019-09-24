@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
+import { prices } from './constants';
+import axios from '../../axios';
+
 import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
-import { prices } from './constants';
-import Modal from '../../components/UI/Modal/modal';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
-import axios from '../../axios';
+import Modal from '../../components/UI/Modal/modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/ErrorHandler';
+
+import { connect } from 'react-redux';
+import actions from '../../store/actions';
 
 class BurgerBuilder extends Component {
     state = {
@@ -130,4 +134,17 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addIngredient: (ingredient) => dispatch({type: actions.addIngredient, ingredient: ingredient}),
+        removeIngredient: (ingredient) => dispatch({type: actions.removeIngredient, ingredient: ingredient})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
