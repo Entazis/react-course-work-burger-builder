@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import actions from '../../store/actions';
+import { actions, actionsAsync } from '../../store/actions';
 import axios from '../../axios';
 
 import Burger from './Burger/Burger';
@@ -14,17 +14,11 @@ import withErrorHandler from '../../hoc/ErrorHandler';
 class BurgerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
-        error: false
+        loading: false
     };
 
-    addIngredient = (type) => {
-        this.props.addIngredient(type);
-    };
-
-    removeIngredient = (type) => {
-        this.props.removeIngredient(type);
-    };
+    addIngredient = (type) => this.props.addIngredient(type);
+    removeIngredient = (type) => this.props.removeIngredient(type);
 
     isPurchaseAvailable = () => {
         const ingredientCount = Object.values(this.props.ingredients)
@@ -48,17 +42,15 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
-        axios.get('/ingredients.json')
-            .then(ingredients => this.props.setIngredients(ingredients.data))
-            .catch(error => {this.setState({error: error})});
+        this.props.fetchIngredients();
     }
 
     render() {
         let buildControls = null;
-        let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner/>;
+        let burger = this.props.error ? <p>Ingredients can't be loaded!</p> : <Spinner/>;
         let orderSummary = null;
 
-        if (!this.state.error) {
+        if (!this.props.error) {
             burger = (
                 <Burger
                     ingredients={this.props.ingredients}
@@ -104,7 +96,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     }
 };
 
@@ -112,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addIngredient: (ingName) => dispatch(actions.addIngredient(ingName)),
         removeIngredient: (ingName) => dispatch(actions.removeIngredient(ingName)),
-        setIngredients: (ingredients) => dispatch(actions.setIngredients(ingredients))
+        setIngredients: (ingredients) => dispatch(actions.setIngredients(ingredients)),
+        fetchIngredients: () => dispatch(actionsAsync.fetchIngredients())
     }
 };
 
