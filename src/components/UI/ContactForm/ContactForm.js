@@ -1,14 +1,11 @@
-import React, { Component }
-    from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Button from '../Button/Button';
-import withErrorHandler
-    from '../../../hoc/ErrorHandler';
-import Input
-    from './Input/Input';
-import axios
-    from '../../../axios';
+import withErrorHandler from '../../../hoc/ErrorHandler';
+import Input from './Input/Input';
+import axios from '../../../axios';
+import {actionsAsync} from '../../../store/actions';
 
 class ContactForm extends Component  {
     state = {
@@ -85,28 +82,18 @@ class ContactForm extends Component  {
     onOrderedHandler = (event) => {
         event.preventDefault();
         this.setState({loading: true});
-
-        axios.post('/orders.json', {
-            ingredients: {
-                bacon: this.props.ingredients.bacon,
-                cheese: this.props.ingredients.cheese,
-                meat: this.props.ingredients.meat,
-                salad: this.props.ingredients.salad
-            },
-            totalPrice: this.props.price,
-            orderInfo: {
+        this.props.postOrder(
+            this.props.ingredients,
+            this.props.price,
+            {
                 name: this.state.contactForm.name.config.value,
                 address: this.state.contactForm.address.config.value,
                 phoneNumber: this.state.contactForm.phone.config.value,
                 email: this.state.contactForm.email.config.value,
                 deliveryMethod: this.state.contactForm.deliveryMethod.value
             }
-        }).then(() => {
-            this.setState({loading: false});
-            if (!this.props.error) {
-                this.props.history.push('/my-orders');
-            }
-        });
+        );
+
     };
 
     render() {
@@ -137,9 +124,15 @@ class ContactForm extends Component  {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        price: state.totalPrice
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice
     }
 };
 
-export default connect(mapStateToProps)(withErrorHandler(withRouter(ContactForm), axios));
+const mapDispatchToProps = dispatch => {
+    return {
+        postOrder: (ingredients, price, orderInfo) => dispatch(actionsAsync.postOrder(ingredients, price, orderInfo))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(withRouter(ContactForm), axios));

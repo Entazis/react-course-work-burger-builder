@@ -1,28 +1,35 @@
 import React, {Component} from 'react';
-import axios from '../../axios';
+import { connect } from 'react-redux';
 
 import Order from '../../components/Order/Order';
+import {actions, actionsAsync} from '../../store/actions';
+import Modal
+    from '../../components/UI/Modal/modal';
+
 
 class Orders extends Component {
-    state = {
-        orders: null,
-    };
-
     componentDidMount() {
-        axios.get('/orders.json')
-            .then(orders => this.setState({orders: orders.data }))
-            .catch(error => {this.setState({error: error})});
+        this.props.fetchOrders();
     }
 
     render() {
         let orders = null;
-        if (this.state.orders) {
-            orders = Object.keys(this.state.orders).map(orderKey => (
+
+        if (this.props.error) {
+            orders = (
+                <Modal
+                    show={this.props.error}
+                    close={this.props.removeError}>
+                    {this.props.error.message}
+                </Modal>
+            )
+        } else if (this.props.orders) {
+            orders = Object.keys(this.props.orders).map(orderKey => (
                 <Order
                     key={orderKey}
-                    ingredients={this.state.orders[orderKey].ingredients}
-                    totalPrice={this.state.orders[orderKey].totalPrice}
-                    orderInfo={this.state.orders[orderKey].orderInfo}/>
+                    ingredients={this.props.orders[orderKey].ingredients}
+                    totalPrice={this.props.orders[orderKey].totalPrice}
+                    orderInfo={this.props.orders[orderKey].orderInfo}/>
             ));
         }
 
@@ -34,4 +41,18 @@ class Orders extends Component {
     }
 }
 
-export default Orders;
+const mapStateToProps = state => {
+    return {
+        orders: state.orders.orders,
+        error: state.orders.error
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchOrders: () => dispatch(actionsAsync.fetchOrders()),
+        removeError: () => dispatch(actions.removeError())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
