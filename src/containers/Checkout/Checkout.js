@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Burger from '../BurgerBuilder/Burger/Burger';
 import Button from '../../components/UI/Button/Button';
@@ -17,8 +17,11 @@ class Checkout extends Component {
     };
 
     render() {
+        const redirect = (this.props.ingredients.bacon === 0 && this.props.ingredients.cheese === 0 &&
+            this.props.ingredients.meat === 0 && this.props.ingredients.salad === 0) ? <Redirect to="/"/>  : null;
         return (
             <div>
+                <p>{redirect}</p>
                 <h2>Here's your delicious burger, we hope you enjoy!</h2>
                 <Burger ingredients={this.props.ingredients}/>
                 <Button clicked={this.onCancelledHandler} type="Danger">Cancel</Button>
