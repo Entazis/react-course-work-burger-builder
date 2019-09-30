@@ -1,4 +1,4 @@
-import actions from './actions';
+import actionTypes from './actionTypes';
 import { prices } from '../containers/BurgerBuilder/constants';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.addIngredient:
+        case actionTypes.ADD_INGREDIENT:
             return {
                 ...state,
                 ingredients: {
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice + prices[action.ingredientName]
             };
-        case actions.removeIngredient:
+        case actionTypes.REMOVE_INGREDIENT:
             return {
                 ...state,
                 ingredients: {
@@ -31,7 +31,7 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice - prices[action.ingredientName]
             };
-        case actions.setIngredients:
+        case actionTypes.SET_INGREDIENTS:
             return {
                 ...state,
                 ingredients: {

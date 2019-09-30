@@ -1,0 +1,7 @@
+const actionTypes = {
+    ADD_INGREDIENT: 'ADD_INGREDIENT',
+    REMOVE_INGREDIENT: 'REMOVE-INGREDIENT',
+    SET_INGREDIENTS: 'SET-INGREDIENTS'
+};
+
+export default actionTypes;

@@ -1,7 +1,9 @@
+import actionTypes from './actionTypes';
+
 const actions = {
-    addIngredient: 'ADD-INGREDIENT',
-    removeIngredient: 'REMOVE-INGREDIENT',
-    setIngredients: 'SET-INGREDIENTS'
+    addIngredient: (ingName) => {return {type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}},
+    removeIngredient: (ingName) => {return {type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName}},
+    setIngredients: (ingredients) => {return {type: actionTypes.SET_INGREDIENTS, ingredients: ingredients}}
 };
 
 export default actions;
