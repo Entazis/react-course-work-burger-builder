@@ -10,7 +10,8 @@ export const actions = {
     orderPostFailed: () => {return {type: actionTypes.POST_ORDER_FAILED}},
     setOrders: (orders) => {return {type: actionTypes.SET_ORDERS, orders: orders}},
     fetchOrdersFailed: (error) => {return {type: actionTypes.FETCH_ORDERS_FAILED, error: error}},
-    removeError: () => {return {type: actionTypes.REMOVE_ERROR}}
+    removeError: () => {return {type: actionTypes.REMOVE_ERROR}},
+    startPurchase: () => {return {type: actionTypes.PURCHASE_STARTED}}
 };
 
 export const actionsAsync = {

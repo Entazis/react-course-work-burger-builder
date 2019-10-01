@@ -17,8 +17,9 @@ class Checkout extends Component {
     };
 
     render() {
-        const redirect = (this.props.ingredients.bacon === 0 && this.props.ingredients.cheese === 0 &&
+        let redirect = (this.props.ingredients.bacon === 0 && this.props.ingredients.cheese === 0 &&
             this.props.ingredients.meat === 0 && this.props.ingredients.salad === 0) ? <Redirect to="/"/>  : null;
+        redirect = (redirect || this.props.purchased) ? <Redirect to="/"/>  : null;
         return (
             <div>
                 <p>{redirect}</p>
@@ -34,7 +35,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.burgerBuilder.ingredients
+        ingredients: state.burgerBuilder.ingredients,
+        purchased: state.burgerBuilder.purchased
     }
 };
 
