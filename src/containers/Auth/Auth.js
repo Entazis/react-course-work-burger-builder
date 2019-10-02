@@ -3,6 +3,7 @@ import classes from './Auth.module.css';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import { checkValidity } from '../../shared/utils';
+import firebase from '../../firebase';
 
 class Auth extends Component {
     state = {
@@ -32,7 +33,8 @@ class Auth extends Component {
                 value: '',
                 displayName: 'Password',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 6
                 },
                 isValid: false,
                 isTouched: false
@@ -45,9 +47,13 @@ class Auth extends Component {
         event.preventDefault();
 
         if (this.state.isSignUp) {
-
+            firebase.auth().createUserWithEmailAndPassword(this.state.authForm.email.value, this.state.authForm.password.value)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
         } else {
-
+            firebase.auth().signInWithEmailAndPassword(this.state.authForm.email.value, this.state.authForm.password.value)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
         }
 
     };
@@ -94,9 +100,11 @@ class Auth extends Component {
 
         let switchButton = <Button type={'Danger'} clicked={this.onFormSwitchHandler}>Switch to Sign Up</Button>;
         let title = <h2>Log In</h2>;
+        let submitButton = <Button type={'Success'}>Login</Button>;
         if (this.state.isSignUp) {
             switchButton = <Button type={'Danger'} clicked={this.onFormSwitchHandler}>Switch to Log In</Button>;
-            title = <h2>Sign Up</h2>
+            title = <h2>Sign Up</h2>;
+            submitButton = <Button type={'Success'}>Signup</Button>;
         }
 
         return (
@@ -104,7 +112,7 @@ class Auth extends Component {
                 {title}
                 <form onSubmit={this.onAuthHandler}>
                     {inputFields}
-                    <Button type={'Success'}>Login</Button>
+                    {submitButton}
                 </form>
                 {switchButton}
             </div>
