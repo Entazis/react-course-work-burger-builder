@@ -14,7 +14,10 @@ const buildControls = (props) => {
                 key={control.label}
                 label={control.label}
                 type={control.type}/>)}
-            <button className={classes.OrderNowButton} disabled={!props.isPurchaseEnabled} onClick={props.ordered}>ORDER NOW</button>
+            <button
+                className={`${classes.OrderNowButton} ${(props.user) ? '' : classes.SignIn}`}
+                disabled={!props.isPurchaseEnabled}
+                onClick={(props.user) ? props.ordered : props.redirect}>{props.user ? 'ORDER NOW' : 'SIGN UP TO ORDER'}</button>
         </div>
     );
 };

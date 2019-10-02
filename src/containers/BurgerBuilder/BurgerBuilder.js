@@ -41,6 +41,11 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     };
 
+    continueToLogin = async () => {
+        this.props.history.push('/auth');
+        this.setState({purchasing: false});
+    };
+
     componentDidMount() {
         this.props.fetchIngredients();
         this.props.startPurchase();
@@ -76,6 +81,8 @@ class BurgerBuilder extends Component {
                     isPurchaseEnabled={this.isPurchaseAvailable()}
                     ordered={this.purchaseHandler}
                     totalPrice={this.props.price}
+                    user={this.props.user}
+                    redirect={this.continueToLogin}
                 />)
         }
 
@@ -99,7 +106,8 @@ const mapStateToProps = state => {
         ingredients: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         error: state.burgerBuilder.error,
-        purchased: state.burgerBuilder.purchased
+        purchased: state.burgerBuilder.purchased,
+        user: state.auth.user
     }
 };
 

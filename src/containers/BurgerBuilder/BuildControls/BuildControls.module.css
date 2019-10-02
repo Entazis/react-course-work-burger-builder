@@ -22,6 +22,11 @@
     color: white;
 }
 
+.SignIn {
+    background-color: yellow;
+    color: black;
+}
+
 .OrderNowButton:disabled {
     background-color: #AC9980;
     border: 1px solid #7E7365;
