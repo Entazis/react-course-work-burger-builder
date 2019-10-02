@@ -5,6 +5,7 @@ import * as actions from '../../store/actions/index';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { checkValidity } from '../../shared/utils';
 
 class Auth extends Component {
@@ -114,13 +115,17 @@ class Auth extends Component {
 
         return (
             <div className={classes.Auth}>
-                {title}
-                <form onSubmit={this.onAuthHandler}>
-                    {inputFields}
-                    {submitButton}
-                </form>
-                {logOutButton}
-                {switchButton}
+                {this.props.loading ? <Spinner /> :
+                    <div>
+                        {title}
+                        <form onSubmit={this.onAuthHandler}>
+                            {inputFields}
+                            {submitButton}
+                        </form>
+                        {logOutButton}
+                        {switchButton}
+                    </div>
+                }
             </div>
         );
     }
@@ -128,7 +133,9 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user
+        user: state.auth.user,
+        loading: state.auth.loading,
+        error: state.auth.error
     };
 };
 
