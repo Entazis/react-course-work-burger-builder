@@ -1,3 +1,9 @@
+export const updateObject = (oldState, newStates) => {
+    return {
+        ...oldState,
+        ...newStates
+    }
+};
 
 export const checkValidity = (value, rules) => {
     let isValid = true;
