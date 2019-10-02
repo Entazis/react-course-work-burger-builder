@@ -33,6 +33,10 @@ class Orders extends Component {
             ));
         }
 
+        if (!this.props.user) {
+            orders = <p>Sorry, this page is only for registered users!:(</p>;
+        }
+
         return (
             <React.Fragment>
                 {orders}
@@ -44,7 +48,8 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
         orders: state.orders.orders,
-        error: state.orders.error
+        error: state.orders.error,
+        user: state.auth.user
     }
 };
 
