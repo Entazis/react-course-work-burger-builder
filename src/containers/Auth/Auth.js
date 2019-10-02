@@ -56,6 +56,10 @@ class Auth extends Component {
 
     };
 
+    onLogOutHandler = () => {
+        this.props.logOutUser();
+    };
+
     onFormSwitchHandler = () => {
         this.setState((prevState) => ({isSignUp: !prevState.isSignUp}));
     };
@@ -99,10 +103,12 @@ class Auth extends Component {
         let switchButton = <Button type={'Danger'} clicked={this.onFormSwitchHandler}>Switch to Sign Up</Button>;
         let title = <h2>Log In</h2>;
         let submitButton = <Button type={'Success'}>Login</Button>;
+        let logOutButton = <Button type={'Danger'} clicked={this.onLogOutHandler}>Logout</Button>;
         if (this.state.isSignUp) {
             switchButton = <Button type={'Danger'} clicked={this.onFormSwitchHandler}>Switch to Log In</Button>;
             title = <h2>Sign Up</h2>;
             submitButton = <Button type={'Success'}>Signup</Button>;
+            logOutButton = null;
         }
 
         return (
@@ -112,6 +118,7 @@ class Auth extends Component {
                     {inputFields}
                     {submitButton}
                 </form>
+                {logOutButton}
                 {switchButton}
             </div>
         );
@@ -122,6 +129,7 @@ const mapDispatchToProps = dispatch => {
     return {
         signUpUser: (email, password) => dispatch(actions.authSignUp(email, password)),
         logInUser: (email, password) => dispatch(actions.authLogIn(email, password)),
+        logOutUser: () => dispatch(actions.authLogOut())
     };
 };
 

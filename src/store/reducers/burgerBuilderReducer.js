@@ -1,6 +1,6 @@
-import actionTypes from './actions/actionTypes';
-import { prices } from '../containers/BurgerBuilder/constants';
-import { updateObject } from './utils';
+import actionTypes from '../actions/actionTypes';
+import { prices } from '../../containers/BurgerBuilder/constants';
+import { updateObject } from '../utils';
 
 const initialState = {
     ingredients: {

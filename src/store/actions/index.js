@@ -10,4 +10,5 @@ export {
     fetchOrders} from './ordersActions';
 export {
     authSignUp,
-    authLogIn} from './authActions';
+    authLogIn,
+    authLogOut} from './authActions';

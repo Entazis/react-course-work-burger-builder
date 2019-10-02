@@ -13,7 +13,9 @@ const actionTypes = {
 
     AUTH_START: 'AUTH_START',
     AUTH_SUCCESS: 'AUTH_SUCCESS',
-    AUTH_FAILED: 'AUTH_FAILED'
+    AUTH_FAILED: 'AUTH_FAILED',
+    AUTH_SAVE_USER: 'AUTH_SAVE_USER',
+    AUTH_REMOVE_USER: 'AUTH_REMOVE_USER'
 };
 
 export default actionTypes;
