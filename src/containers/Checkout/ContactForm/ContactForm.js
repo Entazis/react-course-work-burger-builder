@@ -1,55 +1,92 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from '../../../axios';
+import classes from './ContactForm.module.css';
+import {actionsAsync} from '../../../store/actions';
+
 import Button from '../../../components/UI/Button/Button';
 import withErrorHandler from '../../../hoc/ErrorHandler';
-import Input from './Input/Input';
-import axios from '../../../axios';
-import {actionsAsync} from '../../../store/actions';
+import Input from '../../../components/UI/Input/Input';
+
 
 class ContactForm extends Component  {
     state = {
         loading: false,
         contactForm: {
             name: {
-                inputType: 'text',
+                inputType: 'input',
                 config: {
                     type: 'text',
-                    placeholder: 'Enter your name',
-                    value: ''
+                    placeholder: 'Enter your name'
                 },
+                value: '',
                 displayName: 'Your name',
-                isValid: ''
+                validation: {
+                    required: true
+                },
+                isValid: false,
+                isTouched: false
+            },
+            zipCode: {
+                inputType: 'input',
+                config: {
+                    type: 'text',
+                    placeholder: 'Enter your ZIP code'
+                },
+                value: '',
+                displayName: 'ZIP Code',
+                validation: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 5,
+                    isNumeric: true
+                },
+                isValid: false,
+                isTouched: false
             },
             address: {
-                inputType: 'text',
+                inputType: 'input',
                 config: {
                     type: 'text',
-                    placeholder: 'Enter your address',
-                    value: ''
+                    placeholder: 'Enter your address'
                 },
+                value: '',
                 displayName: 'Your address',
-                isValid: ''
+                validation: {
+                    required: true
+                },
+                isValid: false,
+                isTouched: false
             },
             phone: {
-                inputType: 'text',
+                inputType: 'input',
                 config: {
                     type: 'text',
-                    placeholder: 'Enter your name',
-                    value: ''
+                    placeholder: 'Enter your name'
                 },
+                value: '',
                 displayName: 'Phone number',
-                isValid: ''
+                validation: {
+                    required: true
+                },
+                isValid: false,
+                isTouched: false
             },
             email: {
-                inputType: 'text',
+                inputType: 'input',
                 config: {
                     type: 'email',
-                    placeholder: 'Enter your email address',
-                    value: ''
+                    placeholder: 'Enter your email address'
                 },
+                value: '',
                 displayName: 'Email address',
-                isValid: ''
+                validation: {
+                    required: true,
+                    isEmail: true
+                },
+                isValid: false,
+                isTouched: false
             },
             deliveryMethod: {
                 inputType: 'select',
@@ -59,25 +96,63 @@ class ContactForm extends Component  {
                 ],
                 value: 'fastest',
                 displayName: 'Delivery Method',
-                isValid: ''
+                validation: {},
+                isValid: true,
+                isTouched: false
             }
-        }
+        },
+        isFormValid: false
     };
 
     onChangeHandler = (event, formKey) => {
         const contactForm = {...this.state.contactForm};
         const formElement = {...contactForm[formKey]};
 
-        if (formElement.inputType === 'select') {
-            formElement.value = event.target.value;
-        } else {
-            formElement.config.value = event.target.value;
-        }
-
+        formElement.value = event.target.value;
+        formElement.isValid = this.checkValidity(formElement.value, formElement.validation);
+        formElement.isTouched = true;
         contactForm[formKey] = formElement;
 
-        this.setState({contactForm: contactForm});
+        let isFormValid = true;
+        for (let inputIdentifier in formElement) {
+            if ( formElement.hasOwnProperty(inputIdentifier) ) {
+                isFormValid = formElement[inputIdentifier].valid && isFormValid;
+            }
+        }
+
+        this.setState({contactForm: contactForm, formIsValid: isFormValid});
     };
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (!rules) {
+            return true;
+        }
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        return isValid;
+    }
 
     onOrderedHandler = (event) => {
         event.preventDefault();
@@ -86,10 +161,10 @@ class ContactForm extends Component  {
             this.props.ingredients,
             this.props.price,
             {
-                name: this.state.contactForm.name.config.value,
-                address: this.state.contactForm.address.config.value,
-                phoneNumber: this.state.contactForm.phone.config.value,
-                email: this.state.contactForm.email.config.value,
+                name: this.state.contactForm.name.value,
+                address: this.state.contactForm.address.value,
+                phoneNumber: this.state.contactForm.phone.value,
+                email: this.state.contactForm.email.value,
                 deliveryMethod: this.state.contactForm.deliveryMethod.value
             }
         );
@@ -106,18 +181,21 @@ class ContactForm extends Component  {
                     value={form[formKey].value}
                     key={formKey}
                     displayName={form[formKey].displayName}
+                    invalid={!form[formKey].isValid}
+                    shouldValidate={form[formKey].validation}
+                    touched={form[formKey].isTouched}
                     changed={(event) => this.onChangeHandler(event, formKey)}/>
             )
         });
 
         return (
-            <React.Fragment>
+            <div className={classes.ContactForm}>
                 <h3>Please enter your contact data</h3>
                 <form onSubmit={this.onOrderedHandler}>
                     {inputFields}
                     <Button type={'Success'}>ORDER</Button>
                 </form>
-            </React.Fragment>
+            </div>
         )
     }
 }
