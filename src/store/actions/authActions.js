@@ -2,7 +2,7 @@ import actionTypes from './actionTypes';
 import firebase from '../../firebase';
 
 export const authSuccess = () => {return {type: actionTypes.AUTH_SUCCESS}};
-export const authFailed = () => {return {type: actionTypes.AUTH_FAILED}};
+export const authFailed = (error) => {return {type: actionTypes.AUTH_FAILED, error: error}};
 
 export const authSignUp = (email, password) => {
     return dispatch => {
@@ -11,7 +11,7 @@ export const authSignUp = (email, password) => {
                 dispatch(authSuccess());
             })
             .catch(error => {
-                dispatch(authFailed());
+                dispatch(authFailed(error));
             });
     };
 };
@@ -23,7 +23,7 @@ export const authLogIn = (email, password) => {
                 dispatch(authSuccess());
             })
             .catch(error => {
-                dispatch(authFailed());
+                dispatch(authFailed(error));
             });
     };
 };
