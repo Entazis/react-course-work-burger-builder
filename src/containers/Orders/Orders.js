@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import Order from '../../components/Order/Order';
+import Order from './Order/Order';
 import {actions, actionsAsync} from '../../store/actions';
 import Modal
     from '../../components/UI/Modal/modal';

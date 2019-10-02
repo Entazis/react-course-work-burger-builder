@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Button from '../Button/Button';
+import Button from '../../../components/UI/Button/Button';
 import withErrorHandler from '../../../hoc/ErrorHandler';
 import Input from './Input/Input';
 import axios from '../../../axios';

@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Burger from '../BurgerBuilder/Burger/Burger';
 import Button from '../../components/UI/Button/Button';
-import ContactForm from '../../components/UI/ContactForm/ContactForm';
+import ContactForm from './ContactForm/ContactForm';
 
 import { connect } from 'react-redux';
 
