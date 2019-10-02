@@ -11,7 +11,7 @@ class navigationItems extends Component {
                 <NavigationItem link="/">Burger Builder</NavigationItem>
                 <NavigationItem link="/my-orders">Orders</NavigationItem>
                 {(this.props.user) ?
-                    <NavigationItem link="/auth">Logout</NavigationItem> :
+                    <NavigationItem link="/logout">Logout</NavigationItem> :
                     <NavigationItem link="/auth">Login / Signup</NavigationItem>
                 }
             </ul>);

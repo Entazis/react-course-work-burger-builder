@@ -4,7 +4,8 @@ import { updateObject } from '../../shared/utils';
 const initialState = {
     user: null,
     loading: false,
-    error: null
+    error: null,
+    redirectPath: '/'
 };
 
 const saveUser = (state, action) => {

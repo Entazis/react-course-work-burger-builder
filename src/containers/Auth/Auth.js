@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './Auth.module.css';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 
 import Input from '../../components/UI/Input/Input';
@@ -113,8 +114,14 @@ class Auth extends Component {
             logOutButton = null;
         }
 
+        let authRedirect = null;
+        if (this.props.user) {
+            authRedirect = <Redirect to={this.props.redirectPath}/>
+        }
+
         return (
             <div className={classes.Auth}>
+                {authRedirect}
                 {this.props.loading ? <Spinner /> :
                     <div>
                         {this.props.error ? <p style={{color: 'red'}}>Something went wrong: {this.props.error.message}</p> : null}
@@ -136,7 +143,8 @@ const mapStateToProps = state => {
     return {
         user: state.auth.user,
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        redirectPath: state.auth.redirectPath
     };
 };
 
