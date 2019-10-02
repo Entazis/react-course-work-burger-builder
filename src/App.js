@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -18,6 +18,7 @@ function App() {
                     <Route path="/auth" component={Auth} />
                     <Route path="/logout" component={Logout} />
                     <Route path="/" exact component={BurgerBuilder}/>
+                    <Redirect to="/"/>
                 </Switch>
 
             </Layout>
