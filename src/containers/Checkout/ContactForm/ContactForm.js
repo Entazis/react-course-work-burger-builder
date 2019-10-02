@@ -8,7 +8,7 @@ import {actionsAsync} from '../../../store/actions';
 import Button from '../../../components/UI/Button/Button';
 import withErrorHandler from '../../../hoc/ErrorHandler';
 import Input from '../../../components/UI/Input/Input';
-
+import { checkValidity } from '../../../shared/utils';
 
 class ContactForm extends Component  {
     state = {
@@ -109,7 +109,7 @@ class ContactForm extends Component  {
         const formElement = {...contactForm[formKey]};
 
         formElement.value = event.target.value;
-        formElement.isValid = this.checkValidity(formElement.value, formElement.validation);
+        formElement.isValid = checkValidity(formElement.value, formElement.validation);
         formElement.isTouched = true;
         contactForm[formKey] = formElement;
 
@@ -122,37 +122,6 @@ class ContactForm extends Component  {
 
         this.setState({contactForm: contactForm, formIsValid: isFormValid});
     };
-
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    }
 
     onOrderedHandler = (event) => {
         event.preventDefault();

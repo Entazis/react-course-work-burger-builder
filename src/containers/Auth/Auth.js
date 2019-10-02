@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import classes from './Auth.module.css';
-import Input
-    from '../../components/UI/Input/Input';
-import Button
-    from '../../components/UI/Button/Button';
+import Input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
+import { checkValidity } from '../../shared/utils';
 
 class Auth extends Component {
     state = {
@@ -55,6 +54,25 @@ class Auth extends Component {
 
     onFormSwitchHandler = () => {
         this.setState((prevState) => ({isSignUp: !prevState.isSignUp}));
+    };
+
+    onChangeHandler = (event, formKey) => {
+        const authForm = {...this.state.authForm};
+        const formElement = {...authForm[formKey]};
+
+        formElement.value = event.target.value;
+        formElement.isValid = checkValidity(formElement.value, formElement.validation);
+        formElement.isTouched = true;
+        authForm[formKey] = formElement;
+
+        let isFormValid = true;
+        for (let inputIdentifier in formElement) {
+            if ( formElement.hasOwnProperty(inputIdentifier) ) {
+                isFormValid = formElement[inputIdentifier].valid && isFormValid;
+            }
+        }
+
+        this.setState({authForm: authForm, formIsValid: isFormValid});
     };
 
     render() {
