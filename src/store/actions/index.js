@@ -8,3 +8,6 @@ export {
 export {
     removeError,
     fetchOrders} from './ordersActions';
+export {
+    authSignUp,
+    authLogIn} from './authActions';

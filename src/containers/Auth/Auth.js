@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import classes from './Auth.module.css';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import { checkValidity } from '../../shared/utils';
-import firebase from '../../firebase';
 
 class Auth extends Component {
     state = {
@@ -27,8 +29,8 @@ class Auth extends Component {
             password: {
                 inputType: 'input',
                 config: {
-                    type: 'text',
-                    placeholder: '*******'
+                    type: 'password',
+                    placeholder: '*******',
                 },
                 value: '',
                 displayName: 'Password',
@@ -47,13 +49,9 @@ class Auth extends Component {
         event.preventDefault();
 
         if (this.state.isSignUp) {
-            firebase.auth().createUserWithEmailAndPassword(this.state.authForm.email.value, this.state.authForm.password.value)
-                .then(response => console.log(response))
-                .catch(error => console.log(error));
+            this.props.signUpUser(this.state.authForm.email.value, this.state.authForm.password.value);
         } else {
-            firebase.auth().signInWithEmailAndPassword(this.state.authForm.email.value, this.state.authForm.password.value)
-                .then(response => console.log(response))
-                .catch(error => console.log(error));
+           this.props.logInUser(this.state.authForm.email.value, this.state.authForm.password.value);
         }
 
     };
@@ -120,4 +118,11 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapDispatchToProps = dispatch => {
+    return {
+        signUpUser: (email, password) => dispatch(actions.authSignUp(email, password)),
+        logInUser: (email, password) => dispatch(actions.authLogIn(email, password)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);
