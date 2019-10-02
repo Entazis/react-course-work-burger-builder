@@ -117,6 +117,7 @@ class Auth extends Component {
             <div className={classes.Auth}>
                 {this.props.loading ? <Spinner /> :
                     <div>
+                        {this.props.error ? <p style={{color: 'red'}}>Something went wrong: {this.props.error.message}</p> : null}
                         {title}
                         <form onSubmit={this.onAuthHandler}>
                             {inputFields}
