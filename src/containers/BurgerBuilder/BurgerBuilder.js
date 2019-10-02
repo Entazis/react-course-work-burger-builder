@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import { actions, actionsAsync } from '../../store/actions';
+import * as actions from '../../store/actions/index';
 import axios from '../../axios';
 
 import Burger from './Burger/Burger';
@@ -108,7 +108,7 @@ const mapDispatchToProps = dispatch => {
         addIngredient: (ingName) => dispatch(actions.addIngredient(ingName)),
         removeIngredient: (ingName) => dispatch(actions.removeIngredient(ingName)),
         setIngredients: (ingredients) => dispatch(actions.setIngredients(ingredients)),
-        fetchIngredients: () => dispatch(actionsAsync.fetchIngredients()),
+        fetchIngredients: () => dispatch(actions.fetchIngredients()),
         startPurchase: () => dispatch(actions.startPurchase())
     }
 };

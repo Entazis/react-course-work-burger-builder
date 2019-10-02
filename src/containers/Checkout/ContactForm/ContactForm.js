@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from '../../../axios';
 import classes from './ContactForm.module.css';
-import {actionsAsync} from '../../../store/actions';
+import * as actions from '../../../store/actions/index';
 
 import Button from '../../../components/UI/Button/Button';
 import withErrorHandler from '../../../hoc/ErrorHandler';
@@ -178,7 +178,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        postOrder: (ingredients, price, orderInfo) => dispatch(actionsAsync.postOrder(ingredients, price, orderInfo))
+        postOrder: (ingredients, price, orderInfo) => dispatch(actions.postOrder(ingredients, price, orderInfo))
     }
 };
 

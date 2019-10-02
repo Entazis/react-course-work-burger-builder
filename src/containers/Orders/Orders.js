@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import Order from './Order/Order';
-import {actions, actionsAsync} from '../../store/actions';
+import * as actions from '../../store/actions/index';
 import Modal
     from '../../components/UI/Modal/modal';
 
@@ -50,7 +50,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchOrders: () => dispatch(actionsAsync.fetchOrders()),
+        fetchOrders: () => dispatch(actions.fetchOrders()),
         removeError: () => dispatch(actions.removeError())
     }
 };

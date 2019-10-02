@@ -1,4 +1,4 @@
-import actionTypes from './actionTypes';
+import actionTypes from './actions/actionTypes';
 import { prices } from '../containers/BurgerBuilder/constants';
 import { updateObject } from './utils';
 
